@@ -1,0 +1,150 @@
+<div class="row" style="padding-bottom: 20px">
+
+  <div class="col-lg-8">
+
+    <div class="card">
+      <div class="card-header text-center">
+        Bonjour <strong><%= current_user.username %> !!</strong>
+      </div>
+      <div class="card-body text-center">
+
+        <i>Partagez quelque chose aujourd'hui</i>
+        <hr>
+
+        <%= form_for @post do |f| %>
+          <div class="form-group">
+            <label for="">Votre message :</label>
+            <%= f.text_area :content , class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Ecrire</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header text-center">
+        Modifez votre profil et vos posts
+      </div>
+      <div class="card-body text-center">
+        <%= link_to 'Acceder a votre compte', edit_user_registration_path , class: 'btn btn-primary' %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-lg-8">
+
+    <div class="card">
+      <div class="card-header text-center">
+        Votre mur
+      </div>
+      <div class="card-body">
+
+        <% @posts.each do |post| %>
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="thumbnail">
+                <a href="https://www.templatebook.antonbourtnik.fr/users/show/1" title="Voir le profil de <%= post.user.username %> ">
+                  <img class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user <%= post.user.username %>" onerror="this.onerror=null;this.src='/img/default-image.png';">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-10">
+              <div class="card">
+                <div class="card-header text-center">
+
+                  <strong><%= post.user.username %></strong> <span class="text-muted"> le <i><%= post.updated_at %></i></span>
+
+                  <% if current_user.likes.where(post_id: post.id).count > 0 %>
+                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-unlike  pull-right">
+                      <i style="color:blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      <span><%= post.likes.count %></span>
+                    </button>
+                  <% else %>
+                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-like  pull-right">
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      <span><%= post.likes.count %></span>
+                    </button>
+                  <% end %>
+
+                </div>
+                <div class="card-body" style="overflow-y: auto;">
+                  <%= simple_format(post.content) %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+
+    <div class="card">
+      <div class="card-header text-center">
+        Suggestions d'amis
+      </div>
+      <div class="card-body">
+
+        <div class="card">
+          <div class="card-body">
+
+            <% @users.each do |user| %>
+
+              <div class="row">
+
+                <div class="col-md-5">
+                  <div class="thumbnail">
+                    <a href="https://www.templatebook.antonbourtnik.fr/users/show/10" title="Voir le profil de Yann ">
+                      <img class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user Yann" onerror="this.onerror=null;this.src='/img/default-image.png';">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                  <h3><%= link_to user.username, controller: "users", action: "show", id: user %> </h3>
+                  <p class="small">
+                    <strong> <%= user.followers.count %> follower(s)</strong> - <strong><%= user.posts.count %> post(s)</strong>
+                  </p>
+                  <% if current_user.followers.where(id: user.id).count < 1  %>
+                  <button class="btn btn-warning follow" user-id="<%= user.id %>">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <span>Suivre</span>
+                  </button>
+                  <% else %>
+                    <button class="btn btn-danger unfollow" user-id="<%= user.id %>">
+                      <i class="fa fa-user-times" aria-hidden="true"></i>
+                      <span>Ne plus suibre</span>
+                    </button>
+                  <% end %>
+                </div>
+              </div>
+
+            <% end %>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

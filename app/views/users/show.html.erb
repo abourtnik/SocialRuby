@@ -1,0 +1,46 @@
+<div class="row" style="padding-top: 20px">
+
+  <div class="col-lg-6">
+
+    <div class="card">
+      <div class="card-header text-center">
+        Info sur l'utilisateur
+      </div>
+      <div class="card-body text-center">
+
+        <p>Login : <strong> <%= @user.username  %> </strong></p>
+        <p>Nombre de posts : <%= @user.posts.count  %> </p>
+
+        <button class="btn btn-warning btn-block">Suivre</button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header text-center">
+        Ses posts (<%= @user.posts.count  %>)
+      </div>
+      <div class="card-body text-center">
+
+        <% @user.posts.each do |post| %>
+
+          <div class="card">
+            <div class="card-body">
+              <p> <%= simple_format(post.content) %> </p>
+              <p> <%= link_to post.user.username, controller: "users", action: "show", id: post.user %> </p>
+              <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+              <button class="btn btn-primary"><i class="fa fa-retweet" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<h1>Editer l'article</h1>
+
+<%= form_for @post do |f| %>
+  <div class="form-group">
+    <label for="">Contenu de l'article</label>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="form-group">
+    <button type="submit"> Modifier l'article</button>
+  </div>
+<%= end %>
