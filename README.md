@@ -1,24 +1,33 @@
-# README
+<h1 align="center">
+  <br>
+  Social Ruby
+  <br>
+</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Prerequisites
 
-Things you may want to cover:
+Be sure to have **Ruby >= 5.6** , Ruby on Rails and **SQLIte >= 5.6** installed on your computer/server
 
-* Ruby version
+## Installation
 
-* System dependencies
+### Clone project and install dependencies
 
-* Configuration
+```shell
+git clone https://github.com/Templatebook/templatebook.git
+cd SocialRuby
+bundle install
+```
 
-* Database creation
+### Run migrations
 
-* Database initialization
+```shell
 
-* How to run the test suite
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Run project
 
-* Deployment instructions
+```shell
+rails s -p 3001
+```
 
-* ...
+

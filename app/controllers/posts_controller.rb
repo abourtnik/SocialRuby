@@ -21,20 +21,38 @@ class PostsController < ApplicationController
   end
 
   def like
+
+    @response = {'error' => true}
     @post = Post.find(params[:id])
 
-    #Verify if user not already like post
-
-      Like.create(user: current_user, post: @post)
-
-
-    redirect_to root_path
+    if (@post)
+      #Verify if user not already like post
+      if(true)
+        Like.create(user: current_user, post: @post)
+        @response['like_count'] = Like.where(post_id: @post.id).count
+        @response['error'] = false
+      else
+        @response['message'] = 'Already like'
+      end
+    else
+      @response['message'] = 'Post not found'
+    end
+    render json: @response
   end
 
   def unlike
+
+    @response = {'error' => true}
     @post = Post.find(params[:id])
-    Like.where("user_id = ? AND post_id = ?", current_user.id, @post.id).delete_all
-    redirect_to root_path
+
+    if (@post)
+      Like.where("user_id = ? AND post_id = ?", current_user.id, @post.id).delete_all
+      @response['like_count'] = Like.where(post_id: @post.id).count
+      @response['error'] = false
+    else
+      @response['message'] = 'Post not found'
+    end
+    render json: @response
   end
 
   private

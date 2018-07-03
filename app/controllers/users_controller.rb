@@ -5,15 +5,46 @@ class UsersController < ApplicationController
   end
 
   def follow
+
+    @response = {'error' => true}
     @user = User.find(params[:id])
-    Follow.create(follower_id: current_user.id, following_id: @user.id)
-    redirect_to root_path
+
+    if (params[:id] != current_user.id)
+      if(@user)
+        # Verify if select user don't have current user in your followers
+        if(true)
+          Follow.create(follower_id: current_user.id, following_id: @user.id)
+          @response['error'] = false
+        else
+          @response['message'] = 'Already follow'
+        end
+      else
+        @response['message'] = 'User not found'
+      end
+    else
+      @response['message'] = 'One self'
+    end
+
+
   end
 
   def unfollow
+
+    @response = {'error' => true}
     @user = User.find(params[:id])
-    Follow.where("follower_id = ? AND following_id = ?" , current_user.id , @user.id) .delete_all
-    redirect_to root_path
+
+    if (params[:id] != current_user.id)
+      if(@user)
+        Follow.where("follower_id = ? AND following_id = ?" , current_user.id , @user.id) .delete_all
+        @response['error'] = false
+      else
+        @response['message'] = 'User not found'
+      end
+    else
+      @response['message'] = 'One self'
+    end
+
+    render json: @response
   end
 
 end

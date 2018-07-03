@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="<%= root_path %>">Social Ruby</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav ml-auto">
+
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to current_user.username, edit_user_registration_path , class: "btn btn-success" , style: "margin-right:5px" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Deconnexion', destroy_user_session_path , method: :delete , class: "btn btn-danger" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Se connecter', new_user_session_path , class: "btn btn-primary" , style: "margin-right:5px" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Inscription', new_user_registration_path , class: "btn btn-success"%>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+</nav>
