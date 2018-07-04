@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_id!(params[:id])
   end
 
   def follow
@@ -24,8 +24,7 @@ class UsersController < ApplicationController
     else
       @response['message'] = 'One self'
     end
-
-
+    render json: @response
   end
 
   def unfollow
@@ -43,7 +42,6 @@ class UsersController < ApplicationController
     else
       @response['message'] = 'One self'
     end
-
     render json: @response
   end
 

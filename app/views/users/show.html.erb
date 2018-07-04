@@ -1,6 +1,31 @@
 <div class="row" style="padding-top: 20px">
 
-  <div class="col-lg-3">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header text-center bg-primary text-white">
+        Ses posts (<%= @user.posts.count  %>)
+      </div>
+      <div class="card-body text-center">
+
+        <% @user.posts.each do |post| %>
+
+          <div class="card">
+            <div class="card-body">
+              <p> <%= simple_format(post.content) %> </p>
+              <p> <%= link_to post.user.username, controller: "users", action: "show", id: post.user %> </p>
+              <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+              <button class="btn btn-primary"><i class="fa fa-retweet" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
 
     <div class="card">
       <div class="card-header text-center bg-info text-white">
@@ -39,34 +64,13 @@
 
   </div>
 
-  <div class="col-lg-3">
+</div>
+
+<div class="row" style="padding-top: 20px">
+
+  <div class="col-lg-6">
     <div class="card">
-      <div class="card-header text-center bg-primary text-white">
-        Ses posts (<%= @user.posts.count  %>)
-      </div>
-      <div class="card-body text-center">
-
-        <% @user.posts.each do |post| %>
-
-          <div class="card">
-            <div class="card-body">
-              <p> <%= simple_format(post.content) %> </p>
-              <p> <%= link_to post.user.username, controller: "users", action: "show", id: post.user %> </p>
-              <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-              <button class="btn btn-primary"><i class="fa fa-retweet" aria-hidden="true"></i></button>
-            </div>
-          </div>
-
-        <% end %>
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-header text-center bg-primary text-white">
+      <div class="card-header text-center bg-warning text-white">
         Ses followers (<%= @user.followers.count  %>)
       </div>
       <div class="card-body text-center">
@@ -78,7 +82,7 @@
               <img class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user Yann" onerror="this.onerror=null;this.src='/img/default-image.png';">
             </a>
             <div class="media-body text-right">
-              <h3><%= link_to follower.username, controller: "users", action: "show", id: user %> </h3>
+              <h3><%= link_to follower.username, controller: "users", action: "show", id: follower.id %> </h3>
               <p class="small">
                 <strong> <%= follower.followers.count %> follower(s)</strong> - <strong><%= follower.posts.count %> post(s)</strong>
               </p>
@@ -103,9 +107,9 @@
 
   </div>
 
-  <div class="col-lg-3">
+  <div class="col-lg-6">
     <div class="card">
-      <div class="card-header text-center bg-primary text-white">
+      <div class="card-header text-center bg-warning text-white">
         Ses abonnements (<%= @user.followings.count  %>)
       </div>
       <div class="card-body text-center">
@@ -117,7 +121,7 @@
               <img class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user Yann" onerror="this.onerror=null;this.src='/img/default-image.png';">
             </a>
             <div class="media-body text-right">
-              <h3><%= link_to following.username, controller: "users", action: "show", id: user %> </h3>
+              <h3><%= link_to following.username, controller: "users", action: "show", id: following.id %> </h3>
               <p class="small">
                 <strong> <%= following.followers.count %> follower(s)</strong> - <strong><%= following.posts.count %> post(s)</strong>
               </p>
@@ -141,5 +145,7 @@
     </div>
 
   </div>
+
+</div>
 
 </div>

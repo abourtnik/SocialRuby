@@ -1,6 +1,6 @@
 <div class="row" style="padding-top: 20px">
 
-  <div class="col-lg-6">
+  <div class="col-lg-8">
 
     <div class="card">
       <div class="card-header text-center bg-danger text-white">
@@ -8,17 +8,42 @@
       </div>
       <div class="card-body text-center">
 
-        <% @posts.each do |post| %>
+        <% if @posts.each do |post| %>
 
-          <div class="card">
-            <div class="card-body">
-              <p> <%= simple_format(post.content) %> </p>
-              <p> <%= link_to post.user.username, controller: "users", action: "show", id: post.user %> </p>
-              <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-              <button class="btn btn-primary"><i class="fa fa-retweet" aria-hidden="true"></i></button>
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="thumbnail">
+                <a href="https://www.templatebook.antonbourtnik.fr/users/show/1" title="Voir le profil de <%= post.user.username %> ">
+                  <img width="90px" class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user <%= post.user.username %>" onerror="this.onerror=null;this.src='/img/default-image.png';">
+                </a>
+              </div>
             </div>
+
+            <div class="col-md-10">
+              <div class="card">
+                <div class="card-header text-center">
+
+                  <strong><%= post.user.username %></strong> <span class="text-muted"> <i><%= post.updated_at.strftime("%b %d, %Y  %H:%M:%S") %></i></span>
+
+                  <button disabled type="button" post_id="<%= post.id %>" class="btn btn-success btn-like  pull-right">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <span><%= post.likes.count %></span>
+                  </button>
+
+                </div>
+                <div class="card-body" style="overflow-y: auto;">
+                  <%= simple_format(post.content) %>
+                </div>
+              </div>
+            </div>
+
           </div>
 
+          <hr>
+
+        <% end.empty? %>
+          <p> Aucun message posté pour l'instant</p>
         <% end %>
 
       </div>
@@ -26,7 +51,7 @@
 
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-4">
     <div class="card">
       <div class="card-header text-center bg-success text-white">
         Nouveau sur Social Ryby ?

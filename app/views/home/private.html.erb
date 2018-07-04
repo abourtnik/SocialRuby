@@ -15,6 +15,7 @@
           <div class="form-group">
             <label for="">Votre message :</label>
             <%= f.text_area :content , class: 'form-control' %>
+            <small class="form-text text-muted">Maximum 100 caracteres</small>
           </div>
           <div class="form-group">
             <button class="btn btn-success btn-block" type="submit">
@@ -53,9 +54,9 @@
       <div class="card-header text-center bg-primary text-white">
         Votre mur
       </div>
-      <div class="card-body">
+      <div class="card-body text-center">
 
-        <% @posts.each do |post| %>
+        <% if @posts.each do |post| %>
 
           <div class="row">
 
@@ -96,6 +97,8 @@
 
           <hr>
 
+        <% end.empty? %>
+          <p> Aucun contenu pour vous pour l'instant</p>
         <% end %>
 
       </div>
@@ -109,11 +112,11 @@
       <div class="card-header text-center bg-warning text-white">
         Suggestions d'amis
       </div>
-      <div class="card-body">
+      <div class="card-body text-center">
 
             <ul class="list-unstyled">
 
-            <% @users.each do |user| %>
+            <% if @users.each do |user| %>
 
                 <li class="media">
                   <a href="https://www.templatebook.antonbourtnik.fr/users/show/10" title="Voir le profil de Yann ">
@@ -124,7 +127,7 @@
                     <p class="small">
                       <strong> <%= user.followers.count %> follower(s)</strong> - <strong><%= user.posts.count %> post(s)</strong>
                     </p>
-                    <% if current_user.followers.where(id: user.id).count < 1  %>
+                    <% if current_user.followings.where(id: user.id).count < 1  %>
                       <button class="btn btn-warning text-white follow" user-id="<%= user.id %>">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                         <span>Suivre</span>
@@ -132,18 +135,18 @@
                     <% else %>
                       <button class="btn btn-danger text-white unfollow" user-id="<%= user.id %>">
                         <i class="fa fa-user-times" aria-hidden="true"></i>
-                        <span>Ne plus suibre</span>
+                        <span>Ne plus suivre</span>
                       </button>
                     <% end %>
                   </div>
                 </li>
 
                 <hr>
-
-            <% end %>
+              <% end.empty? %>
+                <p> Aucune suggestion d'amis pour l'instant</p>
+              <% end %>
 
             </ul>
-
       </div>
     </div>
 

@@ -21,9 +21,9 @@
     <div class="row" style="padding-top: 50px">
 
       <% flash.each do |key, value| %>
-        <div class="alert alert-info col-lg-10 mx-auto">
+        <div class="alert alert-info col-lg-10 mx-auto text-center">
           <a href="#" data-dismiss="alert" class="close">×</a>
-          <%= value %>
+          <strong><%= value %></strong>
         </div>
       <% end %>
 
