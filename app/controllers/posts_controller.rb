@@ -1,8 +1,13 @@
 class PostsController < ApplicationController
 
   def create
-    @post = Post.create(post_params)
-    redirect_to root_path
+    if @post = Post.create(post_params).valid?
+      flash[:notice] = "Votre message a eté creé"
+      redirect_to root_path
+    else
+      flash[:notice] = "Le format du message est incorrect"
+      redirect_to root_path
+    end
   end
 
   def edit
