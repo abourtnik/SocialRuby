@@ -45,4 +45,8 @@ class UsersController < ApplicationController
     render json: @response
   end
 
+  def user_params
+    params.require(:user).permit(:email, :password, :remember_me, :avatar, :avatar_cache, :remove_avatar)
+  end
+
 end

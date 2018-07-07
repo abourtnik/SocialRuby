@@ -57,46 +57,7 @@
       <div class="card-body text-center">
 
         <% if @posts.each do |post| %>
-
-          <div class="row">
-
-            <div class="col-md-2">
-              <div class="thumbnail">
-                <a href="https://www.templatebook.antonbourtnik.fr/users/show/1" title="Voir le profil de <%= post.user.username %> ">
-                  <img width="90px" class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user <%= post.user.username %>" onerror="this.onerror=null;this.src='/img/default-image.png';">
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-10">
-              <div class="card">
-                <div class="card-header text-center">
-
-                  <strong><%= post.user.username %></strong> <span class="text-muted"> <i><%= post.updated_at.strftime("%b %d, %Y  %H:%M:%S") %></i></span>
-
-                  <% if current_user.likes.where(post_id: post.id).count > 0 %>
-                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-unlike  pull-right">
-                      <i style="color:blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
-                      <span><%= post.likes.count %></span>
-                    </button>
-                  <% else %>
-                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-like  pull-right">
-                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                      <span><%= post.likes.count %></span>
-                    </button>
-                  <% end %>
-
-                </div>
-                <div class="card-body" style="overflow-y: auto;">
-                  <%= simple_format(post.content) %>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <hr>
-
+          <%= render "partials/post" , locals: {post: post} %>
         <% end.empty? %>
           <p> Aucun contenu pour vous pour l'instant</p>
         <% end %>
@@ -117,34 +78,11 @@
             <ul class="list-unstyled">
 
             <% if @users.each do |user| %>
-
-                <li class="media">
-                  <a href="https://www.templatebook.antonbourtnik.fr/users/show/10" title="Voir le profil de Yann ">
-                    <img class="img-responsive" src="https://www.templatebook.antonbourtnik.fr/storage/avatars/default-men.png" alt="Avatar user Yann" onerror="this.onerror=null;this.src='/img/default-image.png';">
-                  </a>
-                  <div class="media-body text-right">
-                    <h3><%= link_to user.username, controller: "users", action: "show", id: user %> </h3>
-                    <p class="small">
-                      <strong> <%= user.followers.count %> follower(s)</strong> - <strong><%= user.posts.count %> post(s)</strong>
-                    </p>
-                    <% if current_user.followings.where(id: user.id).count < 1  %>
-                      <button class="btn btn-warning text-white follow" user-id="<%= user.id %>">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
-                        <span>Suivre</span>
-                      </button>
-                    <% else %>
-                      <button class="btn btn-danger text-white unfollow" user-id="<%= user.id %>">
-                        <i class="fa fa-user-times" aria-hidden="true"></i>
-                        <span>Ne plus suivre</span>
-                      </button>
-                    <% end %>
-                  </div>
-                </li>
-
+                <%= render "partials/users" , locals: {user: user} %>
                 <hr>
-              <% end.empty? %>
+            <% end.empty? %>
                 <p> Aucune suggestion d'amis pour l'instant</p>
-              <% end %>
+            <% end %>
 
             </ul>
       </div>

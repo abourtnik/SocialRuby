@@ -12,16 +12,16 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   attr_accessor :login
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :username, presence: true, uniqueness: {case_sensitive: false} , format: {with: /\A[a-zA-Z0-9 _\.]*\z/}
 
-  validates_presence_of   :avatar
-  validates_integrity_of  :avatar
-  validates_processing_of :avatar
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  # Setup accessible (or protected) attributes for your model
+  #attr_accessor :login, :password, :remember_me, :avatar, :avatar_cache, :remove_avatar
 
   def self.find_first_by_auth_conditions (warden_conditions)
     conditions = warden_conditions.dup
