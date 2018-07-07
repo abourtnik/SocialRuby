@@ -8,7 +8,7 @@
       <div class="card-body text-center">
 
         <% if @user.posts.each do |post| %>
-          <%= render "partials/post" , locals: {post: post} %>
+          <%= render "partials/post" , post: post %>
         <% end.empty? %>
           <p> Aucun post pour l'instant</p>
         <% end %>
@@ -71,7 +71,7 @@
       <div class="card-body text-center">
 
         <% if @user.followers.each do |follower| %>
-          <%= render "partials/users" , locals: {user: follower} %>
+          <%= render "partials/users" , user: follower %>
         <% end.empty? %>
           <p> Aucun follower pour l'instant</p>
         <% end %>
@@ -89,7 +89,7 @@
       <div class="card-body text-center">
 
         <% if @user.followings.each do |following| %>
-          <%= render "partials/users" , locals: {user: following} %>
+          <%= render "partials/users" , user: following %>
         <% end.empty? %>
           <p> <strong><%= @user.username %></strong> ne suit personne pour l'instant</p>
         <% end %>

@@ -57,7 +57,7 @@
       <div class="card-body text-center">
 
         <% if @posts.each do |post| %>
-          <%= render "partials/post" , locals: {post: post} %>
+          <%= render "partials/post" , post: post %>
         <% end.empty? %>
           <p> Aucun contenu pour vous pour l'instant</p>
         <% end %>
@@ -78,7 +78,7 @@
             <ul class="list-unstyled">
 
             <% if @users.each do |user| %>
-                <%= render "partials/users" , locals: {user: user} %>
+                <%= render "partials/users" , user: user %>
                 <hr>
             <% end.empty? %>
                 <p> Aucune suggestion d'amis pour l'instant</p>

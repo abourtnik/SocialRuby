@@ -9,7 +9,7 @@
       <div class="card-body text-center">
 
         <% if @posts.each do |post| %>
-          <% render "partials/post" , post: post %>
+          <%= render "partials/post" , post: post %>
         <% end.empty? %>
           <p> Aucun message posté pour l'instant</p>
         <% end %>

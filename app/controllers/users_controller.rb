@@ -9,10 +9,10 @@ class UsersController < ApplicationController
     @response = {'error' => true}
     @user = User.find(params[:id])
 
-    if (params[:id] != current_user.id)
+    if (@user.id != current_user.id)
       if(@user)
         # Verify if select user don't have current user in your followers
-        if(true)
+        if(current_user.followings.where(id: @user.id).count < 1)
           Follow.create(follower_id: current_user.id, following_id: @user.id)
           @response['error'] = false
         else

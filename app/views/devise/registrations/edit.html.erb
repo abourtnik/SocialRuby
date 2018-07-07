@@ -80,8 +80,6 @@
 
         <%= button_to "Supprimmer mon compte", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete , class: "btn btn-danger" %>
 
-        <%= link_to "Back", :back , class: "btn btn-default" %>
-
       </div>
 
     </div>
@@ -93,8 +91,7 @@
       <div class="card-body text-center">
 
         <% if @user.followers.each do |follower| %>
-          <%= render "partials/users" , locals: {user: follower} %>
-          <hr>
+          <%= render "partials/users" , user: follower %>
         <% end.empty? %>
           <p> Vous n'avez aucun follower pour l'instant</p>
         <% end %>
@@ -109,8 +106,7 @@
       <div class="card-body text-center">
 
         <% if @user.followings.each do |following| %>
-          <%= render "partials/users" , locals: {user: following} %>
-          <hr>
+          <%= render "partials/users" , user: following %>
         <% end.empty? %>
           <p> Vous ne suivez personne l'instant</p>
         <% end %>
@@ -118,11 +114,57 @@
       </div>
     </div>
 
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header text-center bg-success text-white">
+        Mes posts (<%= @user.posts.count  %>)
+      </div>
+      <div class="card-body text-center">
+
+        <% if @user.posts.each do |post| %>
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header text-center">
+
+                  <div class="pull-left">
+                    <a class="btn btn-primary" href="<%= edit_post_path(post.id)  %>"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger" href="<%= post_path(post.id) %>" data-confirm="Etes-vous sur ?" data-method="DELETE"><i class="fa fa-trash"></i></a>
+                  </div>
+
+
+                  <% if current_user.likes.where(post_id: post.id).count > 0 %>
+
+                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-unlike  pull-right" >
+                      <i style="color:blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      <span><%= post.likes.count %></span>
+                    </button>
+
+                  <% else %>
+
+                    <button <%= (user_signed_in?) ? ('') : ('disabled') %>  type="button" post_id="<%= post.id %>" class="btn btn-success btn-like  pull-right">
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      <span><%= post.likes.count %></span>
+                    </button>
+
+                  <% end %>
+
+                </div>
+                <div class="card-body" style="overflow-y: auto;">
+                  <%= simple_format(post.content) %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <hr>
+        <% end.empty? %>
+          <p> Vous n'avez ecrit aucun post pour l'instant</p>
+        <% end %>
+
+      </div>
+    </div>
+
   </div>
-
-</div>
-
-<div class="row">
-
 
 </div>

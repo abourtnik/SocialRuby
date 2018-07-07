@@ -1,18 +1,18 @@
 <li class="media">
-  <%= link_to image_tag(@user.avatar.url , class: "img-fluid" , alt: "Avatar user"), controller: "users", action: "show", id: @user.id %>
+  <%= link_to image_tag(user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 200), controller: "users", action: "show", id: user.id %>
   <div class="media-body text-right">
-    <h3><%= link_to @user.username, controller: "users", action: "show", id: @user.id %> </h3>
+    <h3><%= link_to user.username, controller: "users", action: "show", id: user.id %> </h3>
     <p class="small">
-      <strong> <%= @user.followers.count %> follower(s)</strong> - <strong><%= @user.posts.count %> post(s)</strong>
+      <strong> <%= user.followers.count %> follower(s)</strong> - <strong><%= user.posts.count %> post(s)</strong>
     </p>
     <% if user_signed_in? %>
-      <% if current_user.followers.where(id: @user.id).count < 1  %>
-        <button class="btn btn-warning text-white follow" user-id="<%= @user.id %>">
+      <% if current_user.followings.where(id: user.id).count < 1  %>
+        <button class="btn btn-warning text-white follow" user-id="<%= user.id %>">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
           <span>Suivre</span>
         </button>
       <% else %>
-        <button class="btn btn-danger text-white unfollow" user-id="<%= @user.id %>">
+        <button class="btn btn-danger text-white unfollow" user-id="<%= user.id %>">
           <i class="fa fa-user-times" aria-hidden="true"></i>
           <span>Ne plus suivre</span>
         </button>
