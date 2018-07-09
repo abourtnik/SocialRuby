@@ -1,5 +1,5 @@
 <li class="media">
-  <%= link_to image_tag(user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 200), controller: "users", action: "show", id: user.id %>
+  <%= link_to image_tag(user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 150), controller: "users", action: "show", id: user.id %>
   <div class="media-body text-right">
     <h3><%= link_to user.username, controller: "users", action: "show", id: user.id %> </h3>
     <p class="small">

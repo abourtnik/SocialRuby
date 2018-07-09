@@ -59,7 +59,43 @@ class PostsController < ApplicationController
 
     if (@post)
       Like.where("user_id = ? AND post_id = ?", current_user.id, @post.id).delete_all
+      Post.decrement_counter(:likes_count, @post.id)
       @response['like_count'] = Like.where(post_id: @post.id).count
+      @response['error'] = false
+    else
+      @response['message'] = 'Post not found'
+    end
+    render json: @response
+  end
+
+  def retweet
+
+    @response = {'error' => true}
+    @post = Post.find(params[:id])
+
+    if (@post)
+      #Verify if user not already retweet post
+      if(current_user.retweets.where(post_id: @post.id).count < 1)
+        Retweet.create(user: current_user, post: @post)
+        @response['retweets_count'] = Retweet.where(post_id: @post.id).count
+        @response['error'] = false
+      else
+        @response['message'] = 'Already retweeet'
+      end
+    else
+      @response['message'] = 'Post not found'
+    end
+    render json: @response
+  end
+
+  def unretweet
+    @response = {'error' => true}
+    @post = Post.find(params[:id])
+
+    if (@post)
+      Retweet.where("user_id = ? AND post_id = ?", current_user.id, @post.id).delete_all
+      Post.decrement_counter(:retweets_count, @post.id)
+      @response['retweets_count'] = Retweet.where(post_id: @post.id).count
       @response['error'] = false
     else
       @response['message'] = 'Post not found'

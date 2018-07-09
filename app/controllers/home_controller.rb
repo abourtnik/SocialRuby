@@ -5,13 +5,9 @@ class HomeController < ApplicationController
     if user_signed_in?
 
       @followings_ids = Follow.where(follower_id: current_user.id).pluck(:following_id)
+      @retweets_ids = Retweet.where(user_id: current_user.id).pluck(:post_id)
 
-      @posts = Post.where(user_id: @followings_ids).order('likes_count DESC')
-
-      if (@posts.count < 10 && Post.count > @posts.count )
-        @other_post = Post.where.not(user_id: current_user.id).order('likes_count DESC').limit(Post.count - @posts.count)
-        @posts = @posts + @other_post
-      end
+      @posts = Post.where(user_id: @followings_ids).or(Post.where(id: @retweets_ids)).order('likes_count DESC')
 
       @post = Post.new
 

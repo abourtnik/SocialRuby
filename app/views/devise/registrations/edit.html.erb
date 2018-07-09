@@ -53,11 +53,6 @@
 
           <%= f.hidden_field :avatar_cache %>
 
-          <div class="form-group">
-            <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-            <%= f.password_field :current_password, autocomplete: "off" , class: "form-control" %>
-          </div>
-
           <div class="actions">
             <%= f.submit "Update" , class: "btn btn-warning btn-block" %>
           </div>
@@ -73,7 +68,7 @@
 
     <div class="card">
       <div class="card-header text-center bg-danger text-white">
-        Supprimmer mon compte
+        Supprimer mon compte
       </div>
 
       <div class="card-body text-center">

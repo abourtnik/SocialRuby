@@ -4,4 +4,5 @@ class Post < ApplicationRecord
 
  belongs_to :user , counter_cache: true
  has_many :likes
+ has_many :retweets
 end

@@ -13,7 +13,7 @@
         <%= form_for @post do |f| %>
           <div class="form-group">
             <label for="">Contenu de l'article</label>
-            <%= f.text_area :content , class: "form-control" %>
+            <%= f.text_area :content , class: "form-control" , rows:"8" %>
             <small class="form-text text-muted">Maximum 100 caractéres</small>
           </div>
 

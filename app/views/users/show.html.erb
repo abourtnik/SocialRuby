@@ -3,12 +3,12 @@
   <div class="col-lg-8">
     <div class="card">
       <div class="card-header text-center bg-primary text-white">
-        Ses posts (<%= @user.posts.count  %>)
+        Ses posts (<%= @user.posts.count  %>) et retweets (<%= @user.retweets.count  %>)
       </div>
       <div class="card-body text-center">
 
-        <% if @user.posts.each do |post| %>
-          <%= render "partials/post" , post: post %>
+        <% if @posts.each do |post| %>
+          <%= render "partials/post" , :post => post , :user_id => @user.id %>
         <% end.empty? %>
           <p> Aucun post pour l'instant</p>
         <% end %>
@@ -31,7 +31,7 @@
         <p>Login : <strong> <%= @user.username  %> </strong></p>
         <p>Nombre de posts : <%= @user.posts.count  %> </p>
 
-        <% if user_signed_in?  %>
+        <% if user_signed_in? && current_user.id != @user.id %>
 
           <% if current_user.followers.where(id: @user.id).count < 1  %>
             <button class="btn btn-warning text-white follow" user-id="<%= @user.id %>">
@@ -41,7 +41,7 @@
           <% else %>
             <button class="btn btn-danger text-white unfollow" user-id="<%= @user.id %>">
               <i class="fa fa-user-times" aria-hidden="true"></i>
-              <span>Ne plus suibre</span>
+              <span>Ne plus suivre</span>
             </button>
           <% end %>
 

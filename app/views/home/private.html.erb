@@ -57,8 +57,8 @@
       <div class="card-body text-center">
 
         <% if @posts.each do |post| %>
-          <%= render "partials/post" , post: post %>
-        <% end.empty? %>
+          <%= render "partials/post" , :post => post , :user_id => current_user.id %>
+      <% end.empty? %>
           <p> Aucun contenu pour vous pour l'instant</p>
         <% end %>
 

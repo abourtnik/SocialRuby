@@ -104,5 +104,51 @@
     });
 
 
+    // Retweet
+
+    $(document).on('click', '.btn-retweet', function() {
+
+        var $button = $(this);
+
+        var post_id = $(this).attr('post_id');
+
+        $.post("/posts/retweet/"+ post_id , function (response) {
+
+            if (response.error) console.log(response.message);
+
+            else {
+
+                $(".btn-retweet[post_id='"+ post_id +"']").find('span').text(response.retweets_count);
+                $button.removeClass('btn-retweet').addClass('btn-unretweet');
+                $button.find('i').css('color' , 'blue');
+
+            }
+
+        } , 'json');
+    });
+
+    // Unlike
+
+    $(document).on('click', '.btn-unretweet', function() {
+
+        var $button = $(this);
+
+        var post_id = $(this).attr('post_id');
+
+        $.post("/posts/unretweet/"+ post_id , function (response) {
+
+            if (response.error) console.log(response.message);
+
+            else {
+
+                $(".btn-unretweet[post_id='"+ post_id +"']").find('span').text(response.retweets_count);
+                $button.removeClass('btn-unretweet').addClass('btn-retweet');
+                $button.find('i').css('color' , 'inherit');
+            }
+
+        } , 'json');
+    });
+
+
 
 })(jQuery);
