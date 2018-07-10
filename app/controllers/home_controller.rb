@@ -7,7 +7,8 @@ class HomeController < ApplicationController
       @followings_ids = Follow.where(follower_id: current_user.id).pluck(:following_id)
       @retweets_ids = Retweet.where(user_id: current_user.id).pluck(:post_id)
 
-      @posts = Post.where(user_id: @followings_ids).or(Post.where(id: @retweets_ids)).order('likes_count DESC')
+      @user_followings_posts = Post.where(user_id: @followings_ids).order('likes_count DESC').order('retweets_count DESC')
+      @retweets_user_posts = Post.where(id: @retweets_ids).order('likes_count DESC').order('retweets_count DESC')
 
       @post = Post.new
 
@@ -20,7 +21,7 @@ class HomeController < ApplicationController
 
       render 'private'
     else
-      @posts = Post.order(updated_at: :desc )
+      @posts = Post.order('likes_count DESC').order('retweets_count DESC')
       render 'index'
     end
 

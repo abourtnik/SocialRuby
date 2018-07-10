@@ -127,24 +127,46 @@
                     <a class="btn btn-danger" href="<%= post_path(post.id) %>" data-confirm="Etes-vous sur ?" data-method="DELETE"><i class="fa fa-trash"></i></a>
                   </div>
 
+                  <div class="pull-right">
 
-                  <% if current_user.likes.where(post_id: post.id).count > 0 %>
+                    <!-- Likes -->
 
-                    <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-unlike  pull-right" >
-                      <i style="color:blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
-                      <span><%= post.likes.count %></span>
-                    </button>
+                    <% if user_signed_in? && current_user.likes.where(post_id: post.id).count > 0 %>
 
-                  <% else %>
+                      <button type="button" post_id="<%= post.id %>" class="btn btn-success btn-unlike" >
+                        <i style="color:blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span><%= post.likes.count %></span>
+                      </button>
 
-                    <button <%= (user_signed_in?) ? ('') : ('disabled') %>  type="button" post_id="<%= post.id %>" class="btn btn-success btn-like  pull-right">
-                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                      <span><%= post.likes.count %></span>
-                    </button>
+                    <% else %>
 
-                  <% end %>
+                      <button <%= (user_signed_in?) ? ('') : ('disabled') %>  type="button" post_id="<%= post.id %>" class="btn btn-success btn-like">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span><%= post.likes.count %></span>
+                      </button>
 
+                    <% end %>
+
+                    <!-- Retweets -->
+
+                    <% if user_signed_in? && current_user.retweets.where(post_id: post.id).count > 0 %>
+
+                      <button type="button" href="<%= retweet_post_path(post.id) %>" post_id="<%= post.id %>" class="btn btn-primary btn-unretweet" >
+                        <i style="color:blue" class="fa fa-retweet" aria-hidden="true"></i>
+                        <span><%= post.retweets.count %></span>
+                      </button>
+
+                    <% else %>
+
+                      <button type="button" href="<%= retweet_post_path(post.id) %>" post_id="<%= post.id %>" class="btn btn-primary <%= (user_signed_in?) ? ('') : ('disabled') %> btn-retweet">
+                        <i class="fa fa-retweet" aria-hidden="true"></i>
+                        <span><%= post.retweets.count %></span>
+                      </button>
+
+                    <% end %>
+                  </div>
                 </div>
+
                 <div class="card-body" style="overflow-y: auto;">
                   <%= simple_format(post.content) %>
                 </div>

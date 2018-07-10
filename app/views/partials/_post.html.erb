@@ -7,7 +7,7 @@
   </div>
 
   <div class="col-md-10">
-    <div class="card">
+    <div class="card <%= ( defined?(user_id) != nil && post.retweets.where(user_id: user_id).count > 0) ? 'border-danger' : '' %>">
       <div class="card-header text-center">
 
         <div class="pull-left">
@@ -54,7 +54,7 @@
 
       </div>
 
-      <div class="card-body <%= ( defined?(user_id) != nil && post.retweets.where(user_id: user_id).count > 0) ? 'bg-info text-white' : '' %>" style="overflow-y: auto;">
+      <div class="card-body" style="overflow-y: auto;">
         <%= simple_format(post.content) %>
       </div>
     </div>

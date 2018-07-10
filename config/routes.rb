@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'home/private'
   resources :posts
 
-  get '/users/show/:id', to: 'users#show'
+  get '/users/show/:id', to: 'users#show', as: 'user_show'
 
   post '/posts/like/:id', to: 'posts#like', as: 'like_post'
   post '/posts/unlike/:id', to: 'posts#unlike', as: 'unlike_post'

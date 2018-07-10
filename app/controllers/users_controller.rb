@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id!(params[:id])
     @retweets_ids = Retweet.where(user_id: params[:id]).pluck(:post_id)
-    @posts = Post.where(user_id: params[:id]).or(Post.where(id: @retweets_ids)).order('likes_count DESC')
+    @user_posts = Post.where(user_id: params[:id]).order('likes_count DESC').order('retweets_count DESC')
+    @retweets_user_posts = Post.where(id: @retweets_ids).order('likes_count DESC').order('retweets_count DESC')
   end
 
   def follow

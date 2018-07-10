@@ -7,10 +7,18 @@
       </div>
       <div class="card-body text-center">
 
-        <% if @posts.each do |post| %>
-          <%= render "partials/post" , :post => post , :user_id => @user.id %>
-        <% end.empty? %>
-          <p> Aucun post pour l'instant</p>
+        <% if @user_posts.count > 0 && @retweets_user_posts.count > 0 %>
+
+          <% @user_posts.each do |post| %>
+            <%= render "partials/post" , :post => post%>
+          <% end %>
+
+          <% @retweets_user_posts.each do |post| %>
+            <%= render "partials/post" , :post => post , :user_id => @user.id %>
+          <% end %>
+
+        <% else %>
+          <p>Aucun post ou retweet pour l'instant</p>
         <% end %>
 
       </div>
@@ -30,6 +38,7 @@
 
         <p>Login : <strong> <%= @user.username  %> </strong></p>
         <p>Nombre de posts : <%= @user.posts.count  %> </p>
+        <p>Nombre de retweets : <%= @user.retweets.count  %> </p>
 
         <% if user_signed_in? && current_user.id != @user.id %>
 

@@ -30,6 +30,7 @@
   </div>
 
   <div class="col-lg-4">
+
     <div class="card">
       <div class="card-header text-center bg-info text-white">
         Modifez votre profil et vos posts
@@ -38,6 +39,18 @@
         <a href="<%= edit_user_registration_path %>" class="btn btn-info">
           <i class="fa fa-user" aria-hidden="true"></i>
           Accéder a votre compte
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px"; class="card">
+      <div class="card-header text-center bg-info text-white">
+        Acceder a votre profil public
+      </div>
+      <div class="card-body text-center">
+        <a href="<%= user_show_path(current_user) %>" class="btn btn-info">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          Mon profil public
         </a>
       </div>
     </div>
@@ -56,10 +69,18 @@
       </div>
       <div class="card-body text-center">
 
-        <% if @posts.each do |post| %>
-          <%= render "partials/post" , :post => post , :user_id => current_user.id %>
-      <% end.empty? %>
-          <p> Aucun contenu pour vous pour l'instant</p>
+        <% if @user_followings_posts.count > 0 && @retweets_user_posts.count > 0 %>
+
+          <% @user_followings_posts.each do |post| %>
+            <%= render "partials/post" , :post => post%>
+          <% end %>
+
+          <% @retweets_user_posts.each do |post| %>
+            <%= render "partials/post" , :post => post , :user_id => current_user.id %>
+          <% end %>
+
+        <% else %>
+          <p>Aucun contenu pour vous pour l'instant</p>
         <% end %>
 
       </div>
