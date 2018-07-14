@@ -69,7 +69,7 @@
       </div>
       <div class="card-body text-center">
 
-        <% if @user_followings_posts.count > 0 && @retweets_user_posts.count > 0 %>
+        <% if @user_followings_posts.count + @retweets_user_posts.count > 0 %>
 
           <% @user_followings_posts.each do |post| %>
             <%= render "partials/post" , :post => post%>
