@@ -27,6 +27,13 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'simple_form'
+gem 'devise'
+gem 'glyphicons'
+gem 'devise-i18n'
+
 gem 'devise'
 gem 'carrierwave', '~> 1.0'
 
