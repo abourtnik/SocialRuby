@@ -1,32 +1,6 @@
 <div class="row" style="padding-top: 20px">
 
-  <div class="col-lg-8">
-    <div class="card">
-      <div class="card-header text-center bg-primary text-white">
-        Ses posts (<%= @user.posts.count  %>) et retweets (<%= @user.retweets.count  %>)
-      </div>
-      <div class="card-body text-center">
-
-        <% if ((@user_posts.count + @retweets_user_posts.count) > 0) %>
-
-          <% @user_posts.each do |post| %>
-            <%= render "partials/post" , :post => post %>
-          <% end %>
-
-          <% @retweets_user_posts.each do |post| %>
-            <%= render "partials/post" , :post => post , :user_id => @user.id %>
-          <% end %>
-
-        <% else %>
-          <p>Aucun post ou retweet pour l'instant</p>
-        <% end %>
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="col-lg-4">
+  <div class="col-lg-3">
 
     <div class="card">
       <div class="card-header text-center bg-info text-white">
@@ -39,6 +13,7 @@
         <p>Login : <strong> <%= @user.username  %> </strong></p>
         <p>Nombre de posts : <%= @user.posts.count  %> </p>
         <p>Nombre de retweets : <%= @user.retweets.count  %> </p>
+        <p>Nombre de likes : <%= @user.likes.count  %> </p>
 
         <% if user_signed_in? && current_user.id != @user.id %>
 
@@ -68,12 +43,34 @@
 
   </div>
 
-</div>
-
-<div class="row" style="padding-top: 20px">
-
   <div class="col-lg-6">
     <div class="card">
+      <div class="card-header text-center bg-primary text-white">
+        Ses posts (<%= @user.posts.count  %>) et retweets (<%= @user.retweets.count  %>)
+      </div>
+      <div class="card-body text-center">
+
+        <% if ((@user_posts.count + @retweets_user_posts.count) > 0) %>
+
+          <% @user_posts.each do |post| %>
+            <%= render "partials/post" , :post => post %>
+          <% end %>
+
+          <% @retweets_user_posts.each do |post| %>
+            <%= render "partials/post" , :post => post , :user_id => @user.id %>
+          <% end %>
+
+        <% else %>
+          <p>Aucun post ou retweet pour l'instant</p>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card" style="margin-bottom: 20px;">
       <div class="card-header text-center bg-warning text-white">
         Ses followers (<%= @user.followers.count  %>)
       </div>
@@ -87,10 +84,6 @@
 
       </div>
     </div>
-
-  </div>
-
-  <div class="col-lg-6">
     <div class="card">
       <div class="card-header text-center bg-warning text-white">
         Ses abonnements (<%= @user.followings.count  %>)
@@ -105,9 +98,6 @@
 
       </div>
     </div>
-
   </div>
-
-</div>
 
 </div>
