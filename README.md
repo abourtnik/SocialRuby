@@ -1,8 +1,11 @@
 <h1 align="center">
-  <br>
-  Social Ruby
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/1200px-Ruby_On_Rails_Logo.svg.png" alt="Rails logo" height="300">
+    <br>
+    Social Ruby
   <br>
 </h1>
+
+<h3 align="center"> Social network with Ruby on Rails </h3>
 
 ## Prerequisites
 
