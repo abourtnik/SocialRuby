@@ -9,7 +9,6 @@ class HomeController < ApplicationController
 
       @user_followings_posts = Post.where(user_id: @followings_ids).order('likes_count DESC').order('retweets_count DESC')
       @retweets_user_posts = Post.where(id: @retweets_ids).order('likes_count DESC').order('retweets_count DESC')
-      @user_posts = Post.where(user_id: current_user.id).order('likes_count DESC').order('retweets_count DESC')
 
       @post = Post.new
 

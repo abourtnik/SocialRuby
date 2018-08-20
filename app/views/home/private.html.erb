@@ -1,31 +1,6 @@
 <div class="row" style="padding-bottom: 20px">
 
-  <div class="col-lg-3">
-
-    <div class="card">
-      <div class="card-header text-center bg-info text-white">
-        Mes infos
-      </div>
-      <div class="card-body text-center">
-
-        <p>
-          <%= link_to image_tag(current_user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 150), controller: "users", action: "show", id: current_user.id %>
-        </p>
-
-        <h3><strong> <%= link_to current_user.username, controller: "users", action: "show", id: current_user.id %> </strong></h3>
-        <hr>
-        <p>Nombre de posts : <%= current_user.posts.count  %> </p>
-        <p>Nombre de retweets : <%= current_user.retweets.count  %> </p>
-        <p>Nombre de likes : <%= current_user.likes.count  %> </p>
-        <p>Membre depuis le  : <i> <%= current_user.current_sign_in_at.strftime("%b %d, %Y  %H:%M:%S") %></i>  </p>
-
-      </div>
-    </div>
-
-
-  </div>
-
-  <div class="col-lg-6">
+  <div class="col-lg-8">
 
     <div class="card">
       <div class="card-header text-center bg-success text-white">
@@ -52,13 +27,49 @@
       </div>
     </div>
 
-    <div class="card" style="margin-top: 20px;">
+  </div>
+
+  <div class="col-lg-4">
+
+    <div class="card">
+      <div class="card-header text-center bg-info text-white">
+        Modifez votre profil et vos posts
+      </div>
+      <div class="card-body text-center">
+        <a href="<%= edit_user_registration_path %>" class="btn btn-info">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Accéder a votre compte
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px"; class="card">
+      <div class="card-header text-center bg-info text-white">
+        Acceder a votre profil public
+      </div>
+      <div class="card-body text-center">
+        <a href="<%= user_show_path(current_user) %>" class="btn btn-info">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          Mon profil public
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-lg-8">
+
+    <div class="card">
       <div class="card-header text-center bg-primary text-white">
         Votre mur
       </div>
       <div class="card-body text-center">
 
-        <% if @user_followings_posts.count + @retweets_user_posts.count + @user_posts.count > 0  %>
+        <% if @user_followings_posts.count + @retweets_user_posts.count > 0 %>
 
           <% @user_followings_posts.each do |post| %>
             <%= render "partials/post" , :post => post%>
@@ -68,20 +79,16 @@
             <%= render "partials/post" , :post => post , :user_id => current_user.id %>
           <% end %>
 
-          <% @user_posts.each do |post| %>
-            <%= render "partials/post" , :post => post %>
-          <% end %>
-
         <% else %>
           <p>Aucun contenu pour vous pour l'instant</p>
         <% end %>
 
       </div>
-    </div >
+    </div>
 
   </div>
 
-  <div class="col-lg-3">
+  <div class="col-lg-4">
 
     <div class="card">
       <div class="card-header text-center bg-warning text-white">
@@ -89,16 +96,16 @@
       </div>
       <div class="card-body text-center">
 
-        <ul class="list-unstyled">
+            <ul class="list-unstyled">
 
-          <% if @users.each do |user| %>
-            <%= render "partials/users" , user: user %>
-            <hr>
-          <% end.empty? %>
-            <p> Aucune suggestion d'amis pour l'instant</p>
-          <% end %>
+            <% if @users.each do |user| %>
+                <%= render "partials/users" , user: user %>
+                <hr>
+            <% end.empty? %>
+                <p> Aucune suggestion d'amis pour l'instant</p>
+            <% end %>
 
-        </ul>
+            </ul>
       </div>
     </div>
 
