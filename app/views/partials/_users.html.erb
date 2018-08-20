@@ -1,10 +1,8 @@
 <li class="media">
-  <%= link_to image_tag(user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 150), controller: "users", action: "show", id: user.id %>
+  <%= link_to image_tag(user.avatar.url , class: "img-fluid" , alt: "Avatar user" , width: 50), controller: "users", action: "show", id: user.id %>
   <div class="media-body text-right">
     <h3><%= link_to user.username, controller: "users", action: "show", id: user.id %> </h3>
-    <p class="small">
-      <strong> <%= user.followers.count %> follower(s)</strong> - <strong><%= user.posts.count %> post(s)</strong>
-    </p>
+
     <% if user_signed_in? %>
       <% if current_user.followings.where(id: user.id).count < 1  %>
         <button class="btn btn-warning text-white follow" user-id="<%= user.id %>">
